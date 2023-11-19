@@ -1,0 +1,26 @@
+.menu-icon {
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    font-size: 28px;
+    margin: 0 8px;
+  }
+}
+
+.toolbarWrapper {
+  height: 75px;
+  background: #fff;
+
+  .toolbar-heading{
+    display: none;
+
+    @media screen and (max-width : 768px){
+        display: block;
+    }
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

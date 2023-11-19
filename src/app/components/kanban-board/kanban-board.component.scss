@@ -1,0 +1,206 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.board {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+  min-height: 0;
+  margin-top: -30px;
+}
+
+.board-wrapper {
+  display: flex;
+  flex-grow: 1;
+  overflow-x: auto;
+}
+.board-columns {
+  display: flex;
+  flex-grow: 1;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-basis: 0;
+
+  max-width: 300px;
+  margin: 20px 10px;
+  padding: 25px;
+
+  border-radius: 4px;
+  // background: #f6f8f9;
+}
+
+.addStatusButton {
+  border: 0;
+  background-color: transparent;
+  width: 100px;
+  text-align: start;
+  font-size: 14px;
+}
+
+.board-column:not(:first-child) {
+  margin-left: 0;
+}
+
+.column-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.column-title {
+  color: #232360;
+  text-transform: uppercase;
+  font-family: DM Sans;
+  padding: 15px 10px;
+  margin-left: 10px;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.tasks-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  border-radius: 4px;
+  min-height: 200px;
+
+  .addIssueButton {
+    border: 0;
+    background-color: transparent;
+    font-size: 14px;
+    margin-left: 4px;
+    margin-bottom: 7px;
+  }
+}
+
+.task {
+  margin: 10px 0 0 0;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.05),
+    0 3px 14px 2px rgba(0, 0, 0, 0.05);
+  background: white;
+  border-bottom: solid 1px #ddd;
+  border-radius: 12px;
+  display: flex;
+  padding: 15px 12px;
+  margin-bottom: 15px;
+
+  .issueContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap : 20px;
+    padding : 0 10px;
+    .issueHeaderContainer{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      gap : 5px;
+      .issueHeadingContainer {
+        width: 65px;
+        height: 27px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .issueHeading {
+          color: #fff;
+          font-family: DM Sans;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+      }
+  
+      .issuePriorityConatainer{
+        width: 65px;
+        height: 27px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+  
+        .issuePriority {
+          color: #fff;
+          font-family: DM Sans;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: normal;
+        }
+      }
+    }
+    .issueContentContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-around;
+
+
+      .issueContentTitle {
+        color: #232360;
+        margin-bottom: 5px;
+        font-family: DM Sans;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      .issueContentSubHeading {
+        color: #768396;
+        font-family: DM Sans;
+        font-size: 16px;
+        font-style: normal;
+        margin-bottom: 10px;
+        font-weight: 500;
+        line-height: normal;
+        max-height: 50px;
+        overflow-y: hidden;
+      }
+
+      .issueContentDueDate {
+        border-radius: 4px;
+        border: 1px solid #e2e2e2;
+        color: #232360;
+        padding: 5px 10px;
+        font-family: "DM Sans";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.tasks-container.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

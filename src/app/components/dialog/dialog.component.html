@@ -1,0 +1,69 @@
+<form #form="ngForm" (ngSubmit)="addIssue()">
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input name="title" [(ngModel)]="issue.title" matInput />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Give a description for your issue" name="description" [(ngModel)]="issue.description"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choose due date</mat-label>
+        <input name="due_date" [(ngModel)]="issue.due_date" matInput [matDatepicker]="picker" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select bug type</mat-label>
+        <mat-select name="type" [(ngModel)]="issue.type">
+          <mat-option value="Bug">Bug</mat-option>
+          <mat-option value="Tasks">Tasks</mat-option>
+          <mat-option value="Story">Story</mat-option>
+          <mat-option value="Feature">Feature</mat-option>
+          <mat-option value="Epic">Epic</mat-option>
+          <mat-option value="Milestone">Milestone</mat-option>
+          <mat-option value="Rush">Rush</mat-option>
+          <mat-option value="Test case">Test case</mat-option>
+          <mat-option value="Deploy">Deploy</mat-option>
+          <mat-option value="Deployment">Deployment</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select name="priority" [(ngModel)]="issue.priority">
+          <mat-option value="Low">Low</mat-option>
+          <mat-option value="Medium">Medium</mat-option>
+          <mat-option value="High">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="authService.loggedInUser.team != '' || role == 3">
+        <mat-label>Project</mat-label>
+        <mat-select (valueChange)="updateOptions($event)" name="project" [(ngModel)]="issue.project">
+          <mat-option *ngFor="let project of projects" value={{project.name}}>{{project.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select name="status" [(ngModel)]="issue.status">
+          <mat-option *ngFor="let _status of status" value={{_status}}>{{_status}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select assignee</mat-label>
+        <mat-select name="assignee" [(ngModel)]="issue.assignee">
+          <mat-option *ngFor="let user of users" value={{user.name}}>{{user.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Select reporter</mat-label>
+        <mat-select name="reporter" [(ngModel)]="issue.reporter">
+          <mat-option *ngIf="reporter" value={{reporter.name}}>{{reporter ? reporter.name : ""}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Story points</mat-label>
+        <input type="number" name="points" [(ngModel)]="issue.points" matInput />
+      </mat-form-field>
+      <button type="submit">Submit</button>
+</form>

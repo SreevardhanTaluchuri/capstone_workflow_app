@@ -1,0 +1,58 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    class="sidenav mat-elevation-z15"
+    #sidenav
+    [mode]="isScreenSmall ? 'over' : 'side'"
+    [opened]="!isScreenSmall"
+  >
+    <mat-toolbar class="app-heading-container">
+      <img class="app-logo" src="assets/logo2.jpg" alt="" />
+      <span class="app-heading">ToDo Py.</span>
+    </mat-toolbar>
+
+    <mat-nav-list class="pageLinkList">
+      <mat-list-item>
+        <div class="pageLinkContainer">
+          <mat-icon>home</mat-icon>
+        <a class="pageLink" [routerLink]="['home']">Home</a>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item class="pageLinkContainer">
+        <div class="pageLinkContainer">
+          <mat-icon class="pageLinkIcon">priority_high</mat-icon>
+        <a class="pageLink" [routerLink]="['issues']">Issues</a>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngIf="role > 1" class="pageLinkContainer">
+        <div class="pageLinkContainer">
+          <mat-icon class="pageLinkIcon">format_list_bulleted</mat-icon>
+        <a class="pageLink" [routerLink]="['projects']">Projects</a>
+        </div>
+      </mat-list-item>
+      <mat-divider *ngIf="role > 1"></mat-divider>
+      <mat-list-item *ngIf="role > 2" class="pageLinkContainer">
+        <div class="pageLinkContainer">
+          <mat-icon class="pageLinkIcon">group</mat-icon>
+        <a class="pageLink" [routerLink]="['teams']">Teams</a>
+        </div>
+      </mat-list-item>
+      <mat-divider *ngIf="role > 2"></mat-divider>
+    </mat-nav-list>
+    <div (click)="logOut()" class="logoutContainer">
+      <mat-icon class="logoutImage">exit_to_app</mat-icon>
+      <span class="logoutText">Logout</span>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-toolbar (toggleSideNav)="sidenav.toggle()"></app-toolbar>
+    <ng-container *ngIf="apiloaded != 3">
+      <mat-spinner></mat-spinner>
+    </ng-container>
+    <div class="dashboardContainer" *ngIf="apiloaded == 3">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

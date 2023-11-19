@@ -1,0 +1,103 @@
+<button class="" *ngIf="role > 1 || authService.loggedInUser.team == ''" (click)="addIssue()">Add issue</button>
+<div class="issuesWrapper">
+  <div class="issuesListWrapper">
+    <div class="issuesFilterContainer">
+      <input
+        type="text"
+        (keyup)="applyFilter($event)"
+        placeholder="Search issue..."
+        class="issuesFilter"
+      />
+      <mat-form-field>
+        <mat-label>Filter based on assignee</mat-label>
+        <mat-select>
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="max-width: 140px;max-width: 100px;">
+        <mat-label>Sort by</mat-label>
+        <mat-select>
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      class="issueContainer"
+      (click)="expandTask(issue)"
+      *ngFor="let issue of issuesObservable | async"
+    >
+      <div class="card bg-light-subtle mt-0">
+        <div class="card-body">
+          <div class="text-section">
+            <h5 class="card-title fw-bold">{{ issue.title }}</h5>
+            <p class="card-text">{{ issue.description }}</p>
+          </div>
+          <div class="cta-section">
+            <div
+            [style.background-color]="
+                issue.priority == 'Low' ? 'green' : issue.priority == 'Medium' ? 'rgba(252,226,5,0.7)' : 'red'
+              "
+              style="width: 70px;height: 35px;border-radius: 5px;"
+            ><app-priority
+              [text]="issue.priority"></app-priority></div>
+            <a style="margin-top: 10px;" href="#" class="btn btn-dark">{{ issue.type }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="issueWrapper">
+    <ng-container *ngIf="selectedIssue">
+      <div class="issueContainer">
+        <div class="issueHeaderWrapper"></div>
+        <div class="issueDetailsContainer">
+          <div class="issueDetailContainer">
+            <div class="issueTitleContainer">
+              <h1 class="issueTitle">{{selectedIssue.title}}</h1>
+            </div>
+            <div class="issueDescriptionContainer">
+              <div class="issueDescription">Description</div>
+              <div class="issueDescriptionText">{{selectedIssue.description}}</div>
+            </div>
+          </div>
+          <div class="issueAdditionalDetailsContainer">
+            <mat-accordion>
+              <mat-expansion-panel
+              style="min-width: 350px;"
+                (opened)="panelOpenState1 = true"
+                (closed)="panelOpenState1 = false"
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Details </mat-panel-title>
+                  <mat-panel-description>
+                     {{ panelOpenState1 ? "" :  "Assignee , Due date" }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Assignee: <span>{{selectedIssue.assignee}}</span></p>
+                <p>Due date: <span>{{selectedIssue.due_date}}</span></p>
+              </mat-expansion-panel>
+            </mat-accordion>
+            <mat-accordion>
+              <mat-expansion-panel
+              style="min-width: 350px;margin-top: 50px;"
+                (opened)="panelOpenState2 = true"
+                (closed)="panelOpenState2 = false"
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Additional details </mat-panel-title>
+                  <mat-panel-description>
+                    {{ panelOpenState2 ? "" : "Priority , Reporter" }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>Priority: {{selectedIssue.project}}</p>
+                <p>Reporter: {{selectedIssue.reporter}}</p>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

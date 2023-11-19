@@ -1,0 +1,107 @@
+<div class="board">
+  <div class="board-wrapper">
+    <div class="board-columns">
+      <div
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        class="board-columns"
+        (cdkDropListDropped)="dropGrid($event)"
+      >
+        <div
+          cdkDragLockAxis="x"
+          class="board-column"
+          (mouseover)="hoveredOn = i"
+          (mouseleave)="hoveredOn = null"
+          *ngFor="let column of columns; index as i"
+          cdkDrag
+        >
+          <div class="column-title-container">
+            <div class="column-title" cdkDragHandle>
+              {{ status[i] }}
+            </div>
+            <button mat-button [matMenuTriggerFor]="menu" *ngIf="role > 1 || authService.loggedInUser.team != ''">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button (click)="removeStatus(i)" mat-menu-item>Remove</button>
+            </mat-menu>
+          </div>
+          <div
+            class="tasks-container"
+            id="{{ i }}"
+            [cdkDropListConnectedTo]="connectedList"
+            cdkDropList
+            [style.height.px]="column.length == 0 ? 100 : 'normal'"
+            [cdkDropListData]="column"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div class="task" *ngFor="let item of column" cdkDrag>
+              <div class="issueContainer">
+                <div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
+                  <div class="issueHeaderContainer">
+                    <div
+                    [style.background-color]="
+                      bugTypeService.getColorFromTypeName(item.type)
+                    "
+                    class="issueHeadingContainer"
+                  >
+                    <span class="issueHeading">{{ item.type }}</span>
+                  </div>
+                  <div [style.background-color]="
+                  item.priority == 'Low' ? 'green' : item.priority == 'Medium' ? 'rgba(252,226,5,0.7)' : 'red'
+                " class="issuePriorityConatainer">
+                    <span class="issuePriority">{{item.priority}}</span>
+                  </div>
+                  </div>
+                  <mat-icon style="margin-top: -40px;">edit</mat-icon>
+                </div>
+                <div class="issueContentContainer">
+                  <span class="issueContentTitle">
+                    {{ item.title }}
+                  </span>
+                  <span class="issueContentSubHeading">
+                    {{
+                      item.description.length > 100
+                        ? item.description.slice(100) + "..."
+                        : item.description
+                    }}
+                  </span>
+                  <span class="issueContentDueDate">
+                    {{ item.due_date | convertDate }}
+                  </span>
+                </div>
+                <div class="issueFooterContainer"></div>
+              </div>
+            </div>
+            <button class="addIssueButton" [hidden]="hoveredOn != i">
+              <span style="font-size: 17px; padding-right: 5px">&plus;</span>Add
+              issue
+            </button>
+          </div>
+        </div>
+        <div class="board-column" *ngIf="role > 1 || authService.loggedInUser.team == ''">
+          <button
+            *ngIf="!newStatusBtnClicked"
+            (click)="newStatusBtnClicked = true"
+            class="addStatusButton"
+          >
+            <span style="font-size: 17px; padding-right: 5px">&plus;</span>Add
+            status
+          </button>
+          <div *ngIf="newStatusBtnClicked">
+            <input
+              type="text"
+              autofocus
+              [(ngModel)]="newStatus"
+              (blur)="newStatusBtnClicked = false"
+            />
+            <div class="buttonContainer">
+              <button (click)="addStatus()">&#10004;</button>
+              <button (click)="newStatusBtnClicked = false">&#10006;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

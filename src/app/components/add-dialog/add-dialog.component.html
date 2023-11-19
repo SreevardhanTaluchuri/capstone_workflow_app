@@ -1,0 +1,130 @@
+<ng-container *ngIf="data.page == 'team'">
+  <h2 mat-dialog-title>Add team</h2>
+  <mat-dialog-content [formGroup]="form">
+    <div class="dialogContainer">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Manager</mat-label>
+        <mat-select matInput formControlName="manager" required>
+          <mat-option
+            *ngFor="let employee of availableForManager"
+            value="{{ employee.name }}"
+            >{{ employee.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Employees</mat-label>
+        <mat-select matInput formControlName="employees" required multiple>
+          <mat-option
+            *ngFor="let employee of availableUsers"
+            [value]="employee.name"
+            >{{ employee.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <div
+        *ngFor="let project of projects.controls; let i = index"
+        formArrayName="projects"
+      >
+        Projects:
+        <div [formGroupName]="i">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required />
+          </mat-form-field>
+          <br />
+          <mat-form-field appearance="fill">
+            <mat-label>Employees</mat-label>
+            <mat-select matInput formControlName="employees" required multiple>
+              <mat-option disabled="!selectedUsers" *ngIf="!selectedUsers"
+                >Please add members into team</mat-option
+              >
+              <mat-option
+                *ngFor="let employee of selectedUsers"
+                [value]="employee.name"
+                >{{ employee.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <button
+        class="addProjectBtn"
+        type="button"
+        [disabled]="!projects.valid"
+        (click)="addProjects()"
+      >
+        Add another project
+      </button>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      [disabled]="form.invalid"
+      mat-button
+      color="primary"
+      (click)="save()"
+    >
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+</ng-container>
+
+
+<ng-container *ngIf="data.page == 'project'">
+  <h2 mat-dialog-title>Add project</h2>
+  <mat-dialog-content [formGroup]="projectForm">
+    <div class="dialogContainer">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Team</mat-label>
+        <mat-select matInput formControlName="team" required>
+          <mat-option
+            *ngFor="let team of teams"
+            [value]="team.name"
+            >{{ team.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <mat-form-field appearance="fill">
+        <mat-label>Employees</mat-label>
+        <mat-select matInput formControlName="employees" required multiple>
+          <mat-option
+            *ngFor="let employee of availableUsers"
+            [value]="employee.name"
+            >{{ employee.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <br />
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      [disabled]="projectForm.invalid"
+      mat-button
+      color="primary"
+      (click)="save()"
+    >
+      <mat-icon>save</mat-icon> Save
+    </button>
+    <button mat-button color="primary" (click)="dismiss()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+  </mat-dialog-actions>
+</ng-container>

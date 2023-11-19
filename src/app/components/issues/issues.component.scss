@@ -1,0 +1,138 @@
+@mixin flex($content, $items) {
+    display: flex;
+    justify-content: $content;
+    align-items: $items;
+  }
+  
+  @mixin width($width, $height) {
+    max-width: $width;
+    width: 100%;
+    max-height: $height;
+    height: 100%;
+  }
+
+.issuesWrapper{
+    @include flex(flex-start,flex-start);
+    .issuesListWrapper{
+      overflow-y: auto;
+      border-right: 2px solid rgba(0,0,0,0.6);
+        @include flex(flex-start,flex-start );
+        flex-direction: column;
+        @include width(325px,90vh);
+        margin: 5px 0 0 5px;
+        min-height: 82vh;
+
+        .issuesFilterContainer{
+          margin-bottom: 5px;
+          .issuesFilter{
+            width: 180px;
+            border: 0;
+            padding: 5px 0 5px 10px;
+            border-bottom: 1px solid black;
+            background-color: transparent;
+            &:focus{
+              outline: 1px solid transparent;
+            }
+          }
+        }
+
+        .issueContainer{
+          cursor: pointer;
+          .card {
+            max-width: 25em;
+            flex-direction: row;
+            background-color: #696969;
+            border: 0;
+            border-radius: 16px;
+            margin: 10px auto;
+            border: 1px solid #696969;
+      
+
+            .card-body {
+              display: flex;
+              justify-content: space-between;
+
+              .text-section {
+                max-width: 60%;
+
+                min-width: 210px;
+                max-width: 210px;
+
+                .card-title {
+                  color: rgb(130, 129, 129);
+                  font-size: 16px;
+                  letter-spacing: 1px;
+                  word-spacing: 1px;
+                }
+
+                .card-text{
+                  font-size: 14px;
+                  padding-right: 18px;
+                  min-width: 230px;
+                  max-width: 230px;
+                  max-height: 40px;
+                  overflow: hidden;
+                }
+              }
+            }
+            
+            .cta-section {
+              max-width: 40%;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+              justify-content: space-between;
+            }
+            .cta-section .btn {
+              padding: 0.3em 0.5em;
+              /* color: #696969; */
+            }
+            .btn {
+              background-color: #898989;
+              border-color: #898989;
+            }
+      
+          }
+
+        }
+    }
+
+    .issueWrapper{
+      padding : 0 10px;
+      .issueContainer{
+        @include flex(center,flex-start);
+        flex-direction: column;
+        .issueHeaderWrapper{
+          padding: 20px 0;
+        }
+
+        .issueDetailsContainer{
+          @include flex(space-between,flex-start);
+          min-width: 750px;
+          max-width: 30vw;
+
+          .issueDetailContainer{
+            .issueTitleContainer{
+              .issueTitle{
+
+              }
+            }
+            .issueDescriptionContainer{
+              .issueDescription{
+                font-size: 16px;
+                font-weight: 500;
+                font-style: Lato;
+              }
+              .issueDescriptionText{
+                max-width: 400px;
+                overflow-x: hidden;
+                font-size: 16px;
+                font-weight: 400;
+                font-style: Lato;
+              }
+            }
+          }
+        }
+      }
+    }
+}

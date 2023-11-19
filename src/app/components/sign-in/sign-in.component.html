@@ -1,0 +1,81 @@
+<div class="signInWrapper">
+    <div class="imageWrapper">
+      <img class="image" src="assets/svg/login.svg" alt="" />
+    </div>
+    <div class="formWrapper">
+        <div class="headingContainer">
+          <h1 class="heading">Sign in your account</h1>
+        </div>
+        <form
+          novalidate
+          (ngSubmit)="save()"
+          [formGroup]="signInForm"
+          class="formController"
+        >
+          <div class="formFieldContainer">
+            <label for="email" class="formFieldHeading">E-mail</label>
+            <input
+              formControlName="email"
+              class="formField"
+              type="text"
+              placeholder="Enter your email"
+              id="email"
+              [ngClass]="{
+                'is-invalid':
+                  (signInForm.get('email')?.touched ||
+                  signInForm.get('email')?.dirty) &&
+                  !signInForm.get('email')?.valid
+              }"
+            />
+            <span class="invalid-feedback">
+              <span *ngIf="signInForm.get('email')?.errors?.['required']">
+                Please enter your last name.
+              </span>
+              <span *ngIf="signInForm.get('email')?.errors?.['email']">
+                Please enter a valid email
+              </span>
+            </span>
+          </div>
+            <div class="formFieldContainer">
+              <label for="password" class="formFieldHeading">Password</label>
+              <input
+                formControlName="password"
+                class="formField"
+                type="password"
+                placeholder="Enter your password"
+                id="password"
+                [ngClass]="{
+                  'is-invalid':
+                    ((signInForm.get('password')?.touched ||
+                      signInForm.get('password')?.dirty) &&
+                      !signInForm.get('password')?.valid)
+                }"
+              />
+              <span class="invalid-feedback">
+                <span *ngIf="signInForm.get('password')?.errors?.['required']">
+                  Please enter password
+                </span>
+              </span>
+            </div>
+          <div class="signInButtonContainer">
+            <button 
+            type="submit"
+            [ngClass]="{
+              'is-invalid':
+                !signInForm.valid
+            }"
+            class="signInButton">Sign in</button>
+          </div>
+        </form>
+        <div class="loginWrapper">
+          <div class="loginHeading">- OR -</div>
+          <div class="loginContainer">
+            <p class="loginText">Create an account?</p>
+            <a class="loginLink" [routerLink]="['/sign-up']">Sign up</a>
+          </div>
+        </div>
+      </div>    
+  </div>
+  
+  
+  

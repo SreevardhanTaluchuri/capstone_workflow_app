@@ -1,0 +1,140 @@
+<div class="signUpWrapper">
+  <div class="formWrapper">
+    <div class="headingContainer">
+      <h1 class="heading">Create your account</h1>
+    </div>
+    <form
+      novalidate
+      (ngSubmit)="save()"
+      [formGroup]="signUpForm"
+      class="formController"
+    >
+      <div class="formFieldContainer">
+        <label for="name" class="formFieldHeading">Name</label>
+        <input
+          formControlName="name"
+          class="formField"
+          type="text"
+          placeholder="Enter your name"
+          id="name"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('name')?.touched ||
+              signUpForm.get('name')?.dirty) &&
+              !signUpForm.get('name')?.valid
+          }"
+        />
+        <span class="invalid-feedback">
+          <span *ngIf="signUpForm.get('name')?.errors?.['required']">
+            Please enter your last name.
+          </span>
+          <span *ngIf="signUpForm.get('name')?.errors?.['minlength']">
+            The last name must be more than 3 characters.
+          </span>
+          <span *ngIf="signUpForm.get('name')?.errors?.['maxlength']">
+            The last name must be less than 30 characters.
+          </span>
+        </span>
+      </div>
+      <div class="formFieldContainer">
+        <label for="email" class="formFieldHeading">E-mail</label>
+        <input
+          formControlName="email"
+          class="formField"
+          type="text"
+          placeholder="Enter your email"
+          id="email"
+          [ngClass]="{
+            'is-invalid':
+              (signUpForm.get('email')?.touched ||
+              signUpForm.get('email')?.dirty) &&
+              !signUpForm.get('email')?.valid
+          }"
+        />
+        <span class="invalid-feedback">
+          <span *ngIf="signUpForm.get('email')?.errors?.['required']">
+            Please enter your last name.
+          </span>
+          <span *ngIf="signUpForm.get('email')?.errors?.['email']">
+            Please enter a valid email
+          </span>
+        </span>
+      </div>
+      <ng-container formGroupName="passwordGroup">
+        <div class="formFieldContainer">
+          <label for="password" class="formFieldHeading">Password</label>
+          <input
+            formControlName="password"
+            class="formField"
+            type="password"
+            placeholder="Enter your password"
+            id="password"
+            [ngClass]="{
+              'is-invalid':
+                signUpForm.get('passwordGroup')?.errors ||
+                ((signUpForm.get('passwordGroup.password')?.touched ||
+                  signUpForm.get('passwordGroup.password')?.dirty) &&
+                  !signUpForm.get('passwordGroup.password')?.valid)
+            }"
+          />
+          <span class="invalid-feedback">
+            <span *ngIf="signUpForm.get('password')?.errors?.['required']">
+              Please enter password
+            </span>
+          </span>
+        </div>
+        <div class="formFieldContainer">
+          <label for="confirmPassword" class="formFieldHeading"
+            >Confirm password</label
+          >
+          <input
+            formControlName="confirmPassword"
+            class="formField"
+            type="password"
+            placeholder="Enter your password again"
+            id="confirmPassword"
+            [ngClass]="{
+              'is-invalid':
+                signUpForm.get('passwordGroup')?.errors ||
+                ((signUpForm.get('passwordGroup.confirmPassword')?.touched ||
+                  signUpForm.get('passwordGroup.confirmPassword')?.dirty) &&
+                  !signUpForm.get('passwordGroup.confirmPassword')?.valid)
+            }"
+          />
+          <span class="invalid-feedback">
+            <span
+              *ngIf="signUpForm.get('passwordGroup.confirmPassword')?.errors?.['required']"
+            >
+              Please enter your password again.
+            </span>
+            <span *ngIf="!signUpForm.get('passwordGroup.confirmPassword')?.errors?.['required'] && signUpForm.get('passwordGroup')?.errors?.['match']">
+              The entered passwords does not match
+            </span>
+          </span>
+        </div>
+      </ng-container>
+      <div class="signUpButtonContainer">
+        <button 
+        type="submit"
+        [ngClass]="{
+          'is-invalid':
+            !signUpForm.valid
+        }"
+        class="signUpButton">Sign up</button>
+      </div>
+      <p class="successMessage" *ngIf="success">User created successfully!<br >Navigating to sign in page...</p>
+    </form>
+    <div class="loginWrapper">
+      <div class="loginHeading">- OR -</div>
+      <div class="loginContainer">
+        <p class="loginText">Already have an account?</p>
+        <a class="loginLink" [routerLink]="['/login']">Login</a>
+      </div>
+    </div>
+  </div>
+  <div class="imageWrapper">
+    <img class="image" src="assets/svg/signup.svg" alt="" />
+  </div>
+</div>
+
+

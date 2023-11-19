@@ -1,0 +1,93 @@
+.sidenav-container {
+  width: 100%;
+  height: 100%;
+  .sidenav {
+    border: 0;
+    width: 160px;
+    .mat-drawer-inner-container{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 100vh;
+    }
+  }
+
+  .logoutContainer{
+    position: fixed;
+    bottom: 20px;
+    left: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap : 5px;
+    cursor: pointer;
+    .logoutImage{
+      font-size: 25px;
+    }
+
+    .logoutText{
+      font-size: 18px;
+      font-weight: 600;
+      font-family: Lato;
+    }
+  }
+
+  .app-heading-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    margin-top: 10px;
+    .app-logo{
+      width: 27px;
+      height: 27px;
+    }
+    .app-heading {
+      color: #23235f;
+      font-family: Lato;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  .pageLinkList{
+    margin-top: 30px;
+    padding-right: 10px;
+    .pageLinkContainer{
+      display: flex;
+      gap : 4px;
+      align-items: flex-start;
+      justify-content: center;
+      .pageLinkIcon{
+        width: 25px;
+        height: 25px;
+        font-size: 26px;
+      }
+
+      .pageLink{
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+        margin-top: 3px;
+      }
+    }
+  }
+}
+
+.sidenav-events {
+  width: 300px;
+  height: 200px;
+  overflow: auto;
+}
+
+.dashboardContainer {
+  background-color: #f3f4f8;
+  min-width: 80vw;
+  min-height: 88vh;
+  overflow-y: scroll;
+}
